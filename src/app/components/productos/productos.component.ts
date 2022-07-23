@@ -30,6 +30,7 @@ export class ProductosComponent implements OnInit {
   id_producto: any
   imagen_producto: string = "";
   imagen_update: string = "";
+  imagen_guardada: string = "";
 
   public informacionProducto = {
     pro_id: -1,
@@ -60,7 +61,8 @@ export class ProductosComponent implements OnInit {
       txtpro_descripcion: ['',[Validators.required, Validators.minLength(5)]],
       txtpro_precio: ['',[Validators.required,Validators.pattern('/^[1-9]\d{6,10}$/')]],
       categoriaSelected: [,[Validators.required]],
-      txtpro_imagen: ['',[Validators.required]]
+      txtpro_imagen: ['',[Validators.required]],
+      pro_update_image: ['']
     })
     this.leerProductos();
     this.submit();
@@ -151,6 +153,22 @@ export class ProductosComponent implements OnInit {
       this.storageService.subirImagen(nombre + "" + fecha, reader.result).then(urlImagen => {
         console.log(urlImagen)
         this.imagen_producto = String(urlImagen)
+      })
+    }
+
+  }
+
+
+  public actualizarImagen(event: any) {
+    let archivo = event.target.files
+    let reader = new FileReader();
+    let nombre = "img"
+    let fecha = Date.now()
+    reader.readAsDataURL(archivo[0])
+    reader.onloadend = () => {
+      this.storageService.subirImagen(nombre + "" + fecha, reader.result).then(urlImagen => {
+        console.log(urlImagen)
+        this.imagen_update = String(urlImagen)
       })
     }
 
@@ -331,6 +349,7 @@ export class ProductosComponent implements OnInit {
 
   public infoUpdateProducto(producto: any) {
     this.id_producto = producto.pro_id;
+    this.form.controls['pro_update_image'].setValue('')
     this.form.controls["txtpro_codigo"].setValue(producto.codigo_prod)
     this.form.controls["txtpro_nombres"].setValue(producto.pro_nombre)
     this.form.controls["txtpro_descripcion"].setValue(producto.pro_descripcion)
@@ -339,7 +358,7 @@ export class ProductosComponent implements OnInit {
     this.form.controls["txtpro_precio"].setValue(producto.pro_precio)
     this.form.controls["txtpro_imagen"].disable();
     this.form.controls["txtpro_imagen"].setValue(producto.pro_imagen)
-    this.imagen_update = producto.pro_imagen
+    this.imagen_guardada = producto.pro_imagen
     console.log(this.id_producto)
 
   }
@@ -350,8 +369,8 @@ export class ProductosComponent implements OnInit {
     let fecha = new Date();
     console.log(fecha.getSeconds());
     console.log(this.imagen_producto)
-    if (this.imagen_producto == "") {
-      this.imagen_producto = this.imagen_update
+    if (this.imagen_update.length==0) {
+      this.imagen_update = this.imagen_guardada
     }
     this.productoService.putUpdateProduct(this.id_producto,
       {
@@ -363,7 +382,7 @@ export class ProductosComponent implements OnInit {
         pro_cantidad: this.form.value.txtcantidad,
         pro_estado: true,
         pro_precio: this.form.value.txtpro_precio,
-        pro_imagen: this.imagen_producto,
+        pro_imagen: this.imagen_update,
 
       }).subscribe(
         respuesta => {

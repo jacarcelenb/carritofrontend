@@ -255,7 +255,7 @@
                             <input id="cantidad" type="number" formControlName="txtcantidad" #cantidad min="1">
                           </div>
                           <div class="form-group">
-                            <input type="file" name="Imagen" (change)="cargarImagen($event)" class="form-control">
+                            <input type="file" name="Imagen" formControlName="pro_update_image" (change)="actualizarImagen($event)" class="form-control">
                           </div>
                           <div class="form-group">
                             <input type="text" name="Url Imagen" formControlName="txtpro_imagen" class="form-control">
