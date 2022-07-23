@@ -1,0 +1,130 @@
+<app-navlogin></app-navlogin>
+<main>
+    <div class="container">
+        <h2>Pedidos Realizados</h2>
+        <div class="container__search">
+            <label for="search">Buscar Pedido</label>
+            <div class="container__search__advertation">
+                <p>No se permite el ingreso de caracteres.</p>
+            </div>
+            <input type="text" placeholder="Ingrese Código Pedido" name="codigoPedido" [(ngModel)]="codigoPedido">
+        </div>
+        <div class="container__orders">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Fecha Pedido</th>
+                        <th>Subtotal</th>
+                        <th>Iva</th>
+                        <th>Total ($)</th>
+                        <th>Ver Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of (pedidos | filterPedidos: codigoPedido: page)[0]">
+                        <td>{{i.ped_cab_codigo}}</td>
+                        <td>{{cambiarformatoFecha(i.ped_cab_fecha)}}</td>
+                        <td>{{i.ped_cab_subtotal}}</td>
+                        <td>{{redonderNumero(i.ped_cab_iva * i.ped_cab_subtotal)}}</td>
+                        <td>{{i.ped_cab_total}}</td>
+                        <td>
+                            <label class="details" (click)="leerDetalleByCodigoPedido(i.ped_cab_codigo)"
+                                for="closeModal">
+                                <i class="fas fa-file-alt"></i></label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="container__orders__pagination">
+                <p>Mostrando {{page + 1}} - {{page + (pedidos | filterPedidos: codigoPedido: page)[0].length}} de
+                    {{(pedidos | filterPedidos: codigoPedido: page)[1]}} totales</p>
+                <div class="container__orders__pagination__buttons">
+                    <button (click)="previousPage()" [disabled]="(page) === 0">Anterior</button>
+                    <button (click)="nextPage()"
+                        [disabled]="(page + (pedidos | filterPedidos: codigoPedido: page)[0].length) === ((pedidos | filterPedidos: codigoPedido: page)[1])">Siguiente</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <input type="checkbox" id="closeModal" name="closeModal">
+    <div id="Modal" class="modalDetails">
+        <div class="modal__content">
+            <div class="modal__content__menu">
+                <h2>Detalles del Pedido</h2>
+                <div>
+                    <label for="closeModal" (click)="eliminar()"><i class="fas fa-times-circle"></i></label>
+                </div>
+            </div>
+            <div class="modal__content__print">
+                <button (click)="generarComprobantePedido()">Imprimir <i class="fas fa-print"></i></button>
+            </div>
+            <div class="modal__content__header">
+                <h2>Datos del Pedido</h2>
+                <div>
+                    <label>Código: </label>
+                    <p>{{detallesPedido[0].ped_cab_codigo}}</p>
+                </div>
+                <div>
+                    <label>Fecha de Pedido: </label>
+                    <p>{{cambiarformatoFecha(detallesPedido[0].ped_cab_fecha)}}</p>
+                </div>
+                <h2>Datos del Cliente</h2>
+                <div>
+                    <label>Cédula: </label>
+                    <p>{{detallesPedido[0].per_cedula}}</p>
+                </div>
+                <div>
+                    <label>Nombres: </label>
+                    <p>{{detallesPedido[0].per_nombres}}</p>
+                </div>
+                <div>
+                    <label>Correo: </label>
+                    <p>{{detallesPedido[0].per_correo}}</p>
+                </div>
+                <div>
+                    <label>Teléfono/Celular: </label>
+                    <p>{{detallesPedido[0].per_telefono}}</p>
+                </div>
+            </div>
+            <div class="modal__content__orders">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código Producto</th>
+                            <th>Nombre Producto</th>
+                            <th>Precio Producto</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let i of detallesPedido">
+                            <td>{{i.codigo_prod}}</td>
+                            <td>{{i.pro_nombre}}</td>
+                            <td>{{i.ped_det_unitario}}</td>
+                            <td>{{i.ped_det_cant}}</td>
+                            <td>{{i.ped_det_total}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal__content__footer">
+                <div>
+                    <label>Subtotal: </label>
+                    <p>{{detallesPedido[0].ped_cab_subtotal}}</p>
+                </div>
+                <div>
+                    <label>Iva(12%): </label>
+                    <p>{{redonderNumero(detallesPedido[0].ped_cab_iva * detallesPedido[0].ped_cab_subtotal)}}</p>
+                </div>
+                <div>
+                    <label>Total: </label>
+                    <p>{{detallesPedido[0].ped_cab_total}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

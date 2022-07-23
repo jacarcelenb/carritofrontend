@@ -1,0 +1,20 @@
+export interface ModelPedidoDetalle {
+    per_cedula: string,
+    per_nombres: string,
+    per_telefono: string,
+    per_correo: string,
+    pro_nombre: string,
+    pro_descripcion: string,
+    codigo_prod: string,
+    ped_cab_id: number,
+    per_id: number,
+    ped_cab_codigo: string,
+    ped_cab_fecha: string,
+    ped_cab_subtotal: number,
+    ped_cab_iva: number,
+    ped_cab_total: number,
+    ped_det_id: number,
+    ped_det_cant: number,
+    ped_det_unitario: number,
+    ped_det_total: number 
+}

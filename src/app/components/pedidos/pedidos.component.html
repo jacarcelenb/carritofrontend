@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menú Responsive</title>
+  <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav>
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn">
+      <i class="fas fa-bars"></i>
+    </label>
+    <a href="#" class="enlace">
+      <img src="../assets/Carrito.ico" alt="" class="logo">
+      ADMINISTRADOR
+    </a>
+    <ul>
+      
+      <li>
+        <a href="pedido">
+          <img src="../assets/Ordering_25406.ico" alt="" class="logo">
+          Pedidos
+        </a>
+      </li>
+      <li>
+        <a href="productos">
+          <img src="../assets/product.ico" alt="" class="logo">
+          Productos
+        </a>
+      </li>
+      <li>
+        <a href="cliente">
+          <img src="../assets/user.ico" alt="" class="logo">
+          Clientes
+        </a>
+      </li>
+      <li>
+        <a routerLink ="/main">
+          <img src="../assets/Logout_37127.ico" alt="" class="logo">
+          Cerrar Sesión
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="col-md-12">
+    <br>
+  </div>
+  <div class="container">
+    <div class="card-header" class="alert alert-primary" role="alert">
+      Administración de Productos
+    </div>
+    
+    <div class="col-md-12">
+      <br>
+    </div>
+    <div class="container-fluid">
+      <form [formGroup]="form1" class="d-flex" role="search">
+        <input class="form-control me-3" width="50" type="search" placeholder="Busqueda por codigo" formControlName="txtpro_codigo" aria-label="Search">
+        <button class="btn btn-outline-success" (click)="leerPedidoByCodigo()" type="submit">Busqueda</button>
+      </form>
+    </div>
+    <div class="col-md-12">
+      <br>
+    </div>
+    <div class="container__orders">
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Fecha Pedido</th>
+                    <th>Subtotal</th>
+                    <th>Iva</th>
+                    <th>Total ($)</th>
+                    <th>Ver Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of pedidos">
+                    <td>{{i.ped_cab_codigo}}</td>
+                    <td>{{cambiarformatoFecha(i.ped_cab_fecha)}}</td>
+                    <td>{{i.ped_cab_subtotal}}</td>
+                    <td>{{redonderNumero(i.ped_cab_iva * i.ped_cab_subtotal)}}</td>
+                    <td>{{i.ped_cab_total}}</td>
+                    <td>
+                        <label class="details" (click)="leerDetalleByCodigoPedido(i.ped_cab_codigo)"
+                            for="closeModal">
+                            <i class="fas fa-file-alt"></i></label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<input type="checkbox" id="closeModal" name="closeModal">
+<div id="Modal" class="modalDetails">
+    <div class="modal__content">
+        <div class="modal__content__menu">
+            <h2>Detalles del Pedido</h2>
+            <div>
+                <label for="closeModal"><i class="fas fa-times-circle"></i></label>
+            </div>
+        </div>
+        <div class="modal__content__print">
+            <button (click)="generarComprobantePedido()">Imprimir <i class="fas fa-print"></i></button>
+        </div>
+        <div class="modal__content__header">
+            <h2>Datos del Pedido</h2>
+            <div>
+                <label>Código: </label>
+                <p>{{detallesPedido[0].ped_cab_codigo}}</p>
+            </div>
+            <div>
+                <label>Fecha de Pedido: </label>
+                <p>{{cambiarformatoFecha(detallesPedido[0].ped_cab_fecha)}}</p>
+            </div>
+            <h2>Datos del Cliente</h2>
+            <div>
+                <label>Cédula: </label>
+                <p>{{detallesPedido[0].per_cedula}}</p>
+            </div>
+            <div>
+                <label>Nombres: </label>
+                <p>{{detallesPedido[0].per_nombres}}</p>
+            </div>
+            <div>
+                <label>Correo: </label>
+                <p>{{detallesPedido[0].per_correo}}</p>
+            </div>
+            <div>
+                <label>Teléfono/Celular: </label>
+                <p>{{detallesPedido[0].per_telefono}}</p>
+            </div>
+        </div>
+        <div class="modal__content__orders">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código Producto</th>
+                        <th>Nombre Producto</th>
+                        <th>Precio Producto</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of detallesPedido">
+                        <td>{{i.codigo_prod}}</td>
+                        <td>{{i.pro_nombre}}</td>
+                        <td>{{i.ped_det_unitario}}</td>
+                        <td>{{i.ped_det_cant}}</td>
+                        <td>{{i.ped_det_total}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal__content__footer">
+            <div>
+                <label>Subtotal: </label>
+                <p>{{detallesPedido[0].ped_cab_subtotal}}</p>
+            </div>
+            <div>
+                <label>Iva(12%): </label>
+                <p>{{redonderNumero(detallesPedido[0].ped_cab_iva * detallesPedido[0].ped_cab_subtotal)}}</p>
+            </div>
+            <div>
+                <label>Total: </label>
+                <p>{{detallesPedido[0].ped_cab_total}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

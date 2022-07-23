@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menú Responsive</title>
+  <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav>
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn">
+      <i class="fas fa-bars"></i>
+    </label>
+    <a href="#" class="enlace">
+      <img src="../assets/Carrito.ico" alt="" class="logo">
+      ADMINISTRADOR
+    </a>
+    <ul>
+      
+      <li>
+        <a href="pedido">
+          <img src="../assets/Ordering_25406.ico" alt="" class="logo">
+          Pedidos
+        </a>
+      </li>
+      <li>
+        <a href="productos">
+          <img src="../assets/product.ico" alt="" class="logo">
+          Productos
+        </a>
+      </li>
+      <li>
+        <a href="cliente">
+          <img src="../assets/user.ico" alt="" class="logo">
+          Clientes
+        </a>
+      </li>
+      <li>
+        <a routerLink ="/main">
+          <img src="../assets/Logout_37127.ico" alt="" class="logo">
+          Cerrar Sesión
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="container" style="margin-top: 40px;">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-header" class="alert alert-primary" role="alert">
+            Administración de Clientes
+          </div>     
+
+        </div>
+      </div>
+      <div class="col-md-12">
+        <br>
+      </div>
+      <div class="container-fluid form-group">
+        <input type="text" class="form-control" name="filterClientes" placeholder="Buscar por cedula..."
+        [(ngModel)]=" filterClientes">
+      </div>
+      <div class="col-md-12">
+        <br>
+      </div>
+      <div class="col-md-12">
+        <table class="table table-warning table-bordered border-primary">
+          <thead >
+            <tr>
+              <th>Cedula</th>
+              <th>Nombres</th>
+              <th>Telefono</th>
+              <th>Correo</th>
+              <th>Estado Civil</th>
+              <th>Ciudad</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor="let cliente of (clientes | filterClientes:filterClientes)[0]" >
+              <td>{{cliente.per_cedula}}</td>
+              <td>{{cliente.per_nombres}}</td>
+              <td>{{cliente.per_telefono}}</td>
+              <td>{{cliente.per_correo}}</td>
+              <td>{{cliente.per_estadocivil}}</td>
+              <td>{{cliente.per_ciudad}}</td>
+              <td class="d-flex justify-content-center">
+                <a class="btn btn-danger" (click)="eliminarCliente(cliente.per_id ,cliente)">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+                <a class="btn btn-success" data-toggle="modal" data-target="#editarCliente" 
+                (click)="EditarCliente(cliente)">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <div class="modal fade" id="editarCliente" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">Editar Cliente</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form [formGroup]="clientefromGroup">
+                          <div class="form-group">
+                            <label name ="Codigo Cliente">
+                              <input type="text" name="Id" formControlName="per_id" class="form-control">                                
+                            </label>                            
+                            
+                          </div>
+                         
+                          <div class="form-group">
+                            <input type="text" name="Nombre" formControlName="per_nombres" class="form-control"  value="{{informacionCliente.per_nombres}}">
+                              
+                          </div>                          
+                          <div class="form-group">
+                            <input type="text"   name="Telefono" formControlName="per_telefono" class="form-control">
+                              
+                          </div>
+                          <div class="form-group">
+                            <input type="text"   name="Correo" formControlName="per_correo" class="form-control">
+                              
+                          </div>                        
+                          <div class="form-group">
+                            <input type="text"    name="Ciudad" formControlName="per_ciudad" class="form-control">
+                             
+                          </div>  
+                          <div class="form-group">
+                            <input type="text" name="Estado Civil" formControlName="per_estadocivil" class="form-control"  value="{{informacionCliente.per_estadocivil}}">
+                             
+                          </div>
+                                                    
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"  (click)="actualizarCliente()" >Actualizar</button>
+
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="container__orders__pagination">
+          <p>Mostrando {{page + 1}} - {{page + (clientes | filterClientes: filterClientes: page)[0].length}} de
+              {{(clientes | filterClientes: filterClientes: page)[1]}} totales</p>
+          <div class="container__orders__pagination__buttons">
+              <button (click)="previousPage()" [disabled]="(page) === 0">Anterior</button>
+              <button (click)="nextPage()"
+                  [disabled]="(page + (clientes | filterClientes: filterClientes: page)[0].length) === ((clientes | filterClientes: filterClientes: page)[1])">Siguiente</button>
+
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
