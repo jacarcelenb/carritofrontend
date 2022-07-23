@@ -369,8 +369,11 @@ export class ProductosComponent implements OnInit {
     let fecha = new Date();
     console.log(fecha.getSeconds());
     console.log(this.imagen_producto)
-    if (this.imagen_update.length==0) {
+    if (this.imagen_update.length > 0) {
+      console.log("No esta vacio")
+    }else{
       this.imagen_update = this.imagen_guardada
+      console.log("Vacio")
     }
     this.productoService.putUpdateProduct(this.id_producto,
       {
