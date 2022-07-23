@@ -348,6 +348,7 @@ export class ProductosComponent implements OnInit {
   }
 
   public infoUpdateProducto(producto: any) {
+    this.imagen_update =""
     this.id_producto = producto.pro_id;
     this.form.controls['pro_update_image'].setValue('')
     this.form.controls["txtpro_codigo"].setValue(producto.codigo_prod)
