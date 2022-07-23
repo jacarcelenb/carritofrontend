@@ -261,10 +261,6 @@ export class RegisterComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-
-        this.router.navigate(['/login']);
-
-
       } else {
         Swal.fire({
           position: 'center',
