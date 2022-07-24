@@ -220,16 +220,7 @@ export class RegisterComponent implements OnInit {
         warningMail.innerHTML = "<i class='fas fa-info-circle'></i> Ingrese un correo electrónico.";
         warningMail.style.display = 'block';
         comprobación = false;
-      } else {
-        if (this.validateMail(this.clienteData.per_correo)) {
-          warningMail.style.display = 'none';
-        } else {
-          warningMail.innerHTML = "<i class='fas fa-info-circle'></i> Ingrese un correo válido.";
-          warningMail.style.display = 'block';
-          comprobación = false;
-        }
-      }
-
+      } 
       if (this.validatePasswords(this.clienteData.per_clave)) {
         warningPassword.style.display = 'none';
       } else {
