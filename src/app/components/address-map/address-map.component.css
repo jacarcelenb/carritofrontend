@@ -1,0 +1,56 @@
+.txt-direccion {
+    width: 100%;
+    height: 1cm;
+    font-size: medium;
+    text-indent: 0.25cm;
+}
+
+.btn-registrar {
+    width: 50%;
+    font-size: medium;
+    background-color: #006414;
+    border-color: white;
+    color: #fff;
+    position: relative;
+    top:0px;
+    right:0px;
+    padding-bottom: 0.30cm
+}
+
+.map-container {
+    border: 3px solid rgb(7, 7, 7);
+}
+
+
+
+
+.btn-registrar:hover {
+    background-color: #18c43a;
+}
+
+.btn-cancelar {
+    width: 50%;
+    background-color: rgb(170, 16, 16);
+    border-color: white;
+    border-radius: 0;
+    color: #fff;
+    padding-bottom: 0.30cm;
+}
+
+.btn-cancelar:hover {
+    background-color: rgb(238, 14, 14);
+}
+
+.icon-btn-close {
+    color: white;
+    background-color: white;
+    border-color: white;
+}
+
+.btn-close {
+    color: white;
+    background-color: white;
+    font-size: medium;
+}
+
+

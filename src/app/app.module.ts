@@ -16,6 +16,7 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {DialogModule} from 'primeng/dialog';
 import { AddressMapComponent } from './components/address-map/address-map.component';
+import {ButtonModule} from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AddressMapComponent } from './components/address-map/address-map.compon
     GMapModule,
     GooglePlaceModule,
     DynamicDialogModule,
-    DialogModule
+    DialogModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
