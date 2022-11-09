@@ -6,35 +6,39 @@
     "start": "node server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "heroku-postbuild":"ng build",
+    "heroku-postbuild": "ng build",
     "test": "ng test"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^14.0.0",
     "@angular/cdk": "^14.0.4",
+    "@angular/cli": "~14.0.3",
     "@angular/common": "^14.0.0",
     "@angular/compiler": "^14.0.0",
+    "@angular/compiler-cli": "^14.0.0",
     "@angular/core": "^14.0.0",
     "@angular/fire": "^7.4.1",
     "@angular/forms": "^14.0.0",
+    "@angular/google-maps": "^14.2.6",
     "@angular/material": "^14.0.4",
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
-    "bootstrap": "^5.1.3",
+    "@types/google.maps": "^3.50.5",
+    "bootstrap": "^5.2.2",
+    "bootstrap4-fullscreen-modal": "^4.5.0",
     "express": "^4.18.1",
     "faker": "^6.6.6",
     "firebase": "^9.9.0",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.25",
+    "primeng": "^14.1.2",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.4.22",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4",
-    "@angular/cli": "~14.0.3",
-    "@angular/compiler-cli": "^14.0.0",
-    "typescript": "~4.7.2"
+    "typescript": "~4.7.2",
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.1.0",
@@ -49,8 +53,8 @@
     "karma-jasmine-html-reporter": "~1.7.0",
     "typescript": "~4.7.2"
   },
-  "engines":{
-    "npm":"6.14.15",
+  "engines": {
+    "npm": "6.14.15",
     "node": "14.18.3"
   }
 }
