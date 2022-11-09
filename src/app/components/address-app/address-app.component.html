@@ -18,25 +18,30 @@
         <td>Jacob</td>
         <td>Domicilio</td>
         <td><button type="button" class="btn btn-warning" data-bs-toggle="modal"
-            data-bs-target="#exampleModal" style="color: white; padding: 0.12cm;">Actualizar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+            data-bs-target="#exampleModal" style="color: white; padding:
+            0.12cm;">Actualizar <i class="fa fa-pencil-square-o"
+              aria-hidden="true"></i></button></td>
       </tr>
       <tr>
         <td>Jacob</td>
         <td>Trabajo</td>
         <td><button type="button" class="btn btn-warning" data-bs-toggle="modal"
-            data-bs-target="#exampleModal" style="color: white;padding: 0.12cm;">Actualizar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+            data-bs-target="#exampleModal" style="color: white;padding:
+            0.12cm;">Actualizar <i class="fa fa-pencil-square-o"
+              aria-hidden="true"></i></button></td>
       </tr>
       <tr>
         <td>Jacob</td>
         <td>Domicilio</td>
         <td><button type="button" class="btn btn-warning" data-bs-toggle="modal"
-            data-bs-target="#exampleModal" style="color: white; padding: 0.12cm;">Actualizar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+            data-bs-target="#exampleModal" style="color: white; padding:
+            0.12cm;">Actualizar <i class="fa fa-pencil-square-o"
+              aria-hidden="true"></i></button></td>
       </tr>
     </tbody>
   </table>
 
 </div>
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1"
@@ -44,17 +49,30 @@
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header">
-        <input type="text" name="" class="txt-direccion" placeholder=" Ingrese la dirección ">
+
+        <input type="text" name="" class="txt-direccion" #inputPlaces
+          placeholder=" Ingrese la dirección "
+          [autocomplete]="true">
+
       </div>
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <google-map [options]="options" width="100%" height="540"
-              class="map" ></google-map>
+            <google-map [options]="options" width="100%" height="578"
+              class="map"
+              (mapClick)="addMarker($event)">
+
+              <map-marker *ngFor="let markerPosition of markerPositions"
+                [position]="markerPosition"
+                [options]="markerOptions"
+                [clickable]="true"
+                (positionChanged)="showValues()"></map-marker>
+            </google-map>
           </div>
 
           <button class="btn btn-primary btn-registrar" type="button">Registrar</button>
-          <button class="btn btn-primary btn-cancelar" type="button" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary btn-cancelar" type="button"
+            data-bs-dismiss="modal">Cancelar</button>
         </form>
       </div>
 

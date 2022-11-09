@@ -12,7 +12,10 @@ import { FilterProductosPipe } from './shared/filter-productos.pipe';
 import { AddressAppComponent } from './components/address-app/address-app.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import {GMapModule} from 'primeng/gmap';
-
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import {DialogModule} from 'primeng/dialog';
+import { AddressMapComponent } from './components/address-map/address-map.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,7 @@ import {GMapModule} from 'primeng/gmap';
     FilterClientesPipe,
     FilterProductosPipe,
     AddressAppComponent,
+    AddressMapComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -31,7 +35,10 @@ import {GMapModule} from 'primeng/gmap';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     GoogleMapsModule,
-    GMapModule
+    GMapModule,
+    GooglePlaceModule,
+    DynamicDialogModule,
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
