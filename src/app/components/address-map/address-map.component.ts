@@ -116,8 +116,20 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   }
 
   showValues() {
+    let positions =[]
     console.log(this.markerposition?.getPosition()?.lat())
     console.log(this.markerposition?.getPosition()?.lng())
+
+     const position ={
+      latitude:this.markerposition?.getPosition()?.lat(),
+      longitude:this.markerposition?.getPosition()?.lng()
+     }
+
+    positions.push(position)
+
+    console.log("Ultima posicion")
+    console.log(positions[positions.length-1])
+
   }
 
 }
