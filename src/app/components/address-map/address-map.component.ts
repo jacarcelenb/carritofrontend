@@ -4,12 +4,14 @@ import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { SenderDataService } from 'src/app/service/sender-data.service';
 
+
 @Component({
   selector: 'app-address-map',
   templateUrl: './address-map.component.html',
   styleUrls: ['./address-map.component.css']
 })
 export class AddressMapComponent implements AfterViewInit, OnInit {
+  positions: any[] = [];
   @ViewChild('inputPlaces')
   inputPlaces!: ElementRef;
   @ViewChild("placesRef") placesRef: GooglePlaceDirective | undefined;
@@ -116,20 +118,25 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   }
 
   showValues() {
-    let positions =[]
     console.log(this.markerposition?.getPosition()?.lat())
     console.log(this.markerposition?.getPosition()?.lng())
 
-     const position ={
-      latitude:this.markerposition?.getPosition()?.lat(),
-      longitude:this.markerposition?.getPosition()?.lng()
-     }
+    const position = {
+      latitude: this.markerposition?.getPosition()?.lat(),
+      longitude: this.markerposition?.getPosition()?.lng()
+    }
 
-    positions.push(position)
+    this.positions.push(position)
 
+
+
+  }
+
+  SaveData() {
     console.log("Ultima posicion")
-    console.log(positions[positions.length-1])
-
+    console.log(this.positions[this.positions.length-1])
+    alert( "Latitud: "+this.positions[this.positions.length - 1].latitude + "  "
+    +"Longitud: "+this.positions[this.positions.length-1].longitude)
   }
 
 }
