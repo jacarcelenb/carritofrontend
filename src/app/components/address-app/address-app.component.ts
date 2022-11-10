@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms'
 import { GoogleMap, MapGeocoder, MapMarker } from '@angular/google-maps';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
+import { SenderDataService } from 'src/app/service/sender-data.service';
 
 
 
@@ -14,10 +15,10 @@ import { Address } from 'ngx-google-places-autocomplete/objects/address';
   templateUrl: './address-app.component.html',
   styleUrls: ['./address-app.component.css']
 })
-export class AddressAppComponent implements AfterViewInit {
+export class AddressAppComponent implements AfterViewInit, OnInit{
   @ViewChild('inputPlaces')
   inputPlaces!: ElementRef;
-  @ViewChild("placesRef") placesRef : GooglePlaceDirective | undefined;
+  @ViewChild("placesRef") placesRef: GooglePlaceDirective | undefined;
 
   @ViewChild(GoogleMap) map: GoogleMap | undefined;
   @ViewChild(MapMarker) markerposition: MapMarker | undefined
@@ -35,12 +36,24 @@ export class AddressAppComponent implements AfterViewInit {
     zoom: 4,
     fullscreenControl: false
   };
-  constructor() {
+  constructor(private SenderDataService: SenderDataService) {
+  }
+  ngOnInit(): void {
+   this.formattedaddress = "fadfasdfasdfasdfasdfasdfasdfas"
+  }
+
+  selectDireccion() {
+
+
+    this.SenderDataService.sender.emit({
+      data: this.formattedaddress
+    })
+
   }
   public AddressChange(address: any) {
     //setting address from API to local variable
-    this.formattedaddress=address.formatted_address
-    }
+    this.formattedaddress = address.formatted_address
+  }
   addMarker(event: google.maps.MapMouseEvent) {
     if (this.markerPositions.length == 0) {
       this.markerPositions.push(event.latLng!.toJSON());
@@ -49,12 +62,12 @@ export class AddressAppComponent implements AfterViewInit {
 
   display: boolean = false;
 
-    showDialog() {
-        this.display = true;
-    }
+  showDialog() {
+    this.display = true;
+  }
   public handleAddressChange(address: Address) {
     console.log(address)
-}
+  }
 
 
   ngAfterViewInit(): void {

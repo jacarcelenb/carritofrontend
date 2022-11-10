@@ -2,36 +2,48 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
+import { SenderDataService } from 'src/app/service/sender-data.service';
 
 @Component({
   selector: 'app-address-map',
   templateUrl: './address-map.component.html',
   styleUrls: ['./address-map.component.css']
 })
-export class AddressMapComponent implements AfterViewInit {
+export class AddressMapComponent implements AfterViewInit, OnInit {
   @ViewChild('inputPlaces')
   inputPlaces!: ElementRef;
-  @ViewChild("placesRef") placesRef : GooglePlaceDirective | undefined;
+  @ViewChild("placesRef") placesRef: GooglePlaceDirective | undefined;
   latitude: number | undefined;
-  longitude: number  | undefined;
+  longitude: number | undefined;
   @ViewChild(GoogleMap)
   map!: google.maps.Map;
   @ViewChild(MapMarker) markerposition: MapMarker | undefined
 
 
-  markerOptions: google.maps.MarkerOptions = { draggable: true,
-   title:"Usted está aquí"};
-  markerPositions: google.maps.LatLngLiteral[] = [ ];
+  markerOptions: google.maps.MarkerOptions = {
+    draggable: true,
+    title: "Usted está aquí"
+  };
+  markerPositions: google.maps.LatLngLiteral[] = [];
   options: google.maps.MapOptions = {
     center: { lat: -1.831239, lng: -78.183406 },
     zoom: 4,
     fullscreenControl: false,
     disableDefaultUI: false,
-    mapTypeControl:false
+    mapTypeControl: false
 
   };
-  constructor() {
+  constructor(private SenderDataService: SenderDataService) {
   }
+  ngOnInit(): void {
+    console.log("dataffff")
+    this.SenderDataService.sender.subscribe((data: any) => {
+      console.log("dataffff")
+      console.log(data)
+    })
+  }
+
+
 
 
   addMarker(position: google.maps.LatLngLiteral) {
@@ -42,12 +54,12 @@ export class AddressMapComponent implements AfterViewInit {
 
   display: boolean = false;
 
-    showDialog() {
-        this.display = true;
-    }
+  showDialog() {
+    this.display = true;
+  }
   public handleAddressChange(address: Address) {
     console.log(address)
-}
+  }
 
 
   ngAfterViewInit(): void {
@@ -85,7 +97,7 @@ export class AddressMapComponent implements AfterViewInit {
       })
 
 
-      this.markerPositions.push({lat: this.latitude! , lng: this.longitude!})
+      this.markerPositions.push({ lat: this.latitude!, lng: this.longitude! })
       this.map?.fitBounds(bounds)
 
 
