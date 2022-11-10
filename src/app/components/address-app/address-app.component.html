@@ -5,12 +5,12 @@
   <br>
   <br>
   <br>
-  <table class="table table-striped table-bordered" style="margin-left: 4cm;">
+  <table class="table table-striped table-bordered" style="margin-left: 3cm;">
     <thead>
       <tr>
-        <th scope="col">Tipo de dirección</th>
-        <th scope="col">Dirección</th>
-        <th scope="col">Opción</th>
+        <th scope="col" style="width: 6cm;">Tipo de dirección</th>
+        <th scope="col" style="width: 5cm;">Dirección</th>
+        <th scope="col" style="width: 3cm;  justify-items: center;">Opción</th>
       </tr>
     </thead>
     <tbody>
@@ -18,24 +18,30 @@
         <td>Jacob</td>
         <td>Domicilio</td>
         <td><button type="button" class="btn btn-warning" data-bs-toggle="modal"
-            data-bs-target="#exampleModal" style="color: white; padding:
-            0.12cm;">Actualizar <i class="fa fa-pencil-square-o"
-              aria-hidden="true"></i></button></td>
+            data-bs-target="#exampleModal" style="color: rgb(10, 10, 10); padding:
+            0.12cm;">Actualizar <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+</svg></button></td>
       </tr>
       <tr>
         <td>Jacob</td>
         <td>Trabajo</td>
         <td><button type="button" class="btn btn-warning" data-bs-toggle="modal"
-            data-bs-target="#exampleModal" style="color: white;padding:
-            0.12cm;">Actualizar <i class="fa fa-pencil-square-o"
-              aria-hidden="true"></i></button></td>
+            data-bs-target="#exampleModal" style="color: rgb(5, 5, 5);padding:
+            0.12cm;">Actualizar <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+</svg></button></td>
       </tr>
       <tr>
         <td>Jacob</td>
         <td>Domicilio</td>
-        <td><button type="button" class="btn btn-warning"  style="color: white; padding:
-            0.12cm;" routerLink="/map">Actualizar <i class="fa fa-pencil-square-o"
-              aria-hidden="true"></i></button></td>
+        <td><button type="button" class="btn btn-warning"  style="color: rgb(0, 0, 0); padding:
+            0.12cm;" routerLink="/map">Actualizar  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+</svg></button></td>
       </tr>
     </tbody>
   </table>
@@ -47,34 +53,8 @@
   aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
-      <div class="modal-header">
 
-        <input type="text" name="" class="txt-direccion" #inputPlaces
-          placeholder=" Ingrese la dirección "
-          [autocomplete]="true">
-
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <google-map [options]="options" width="100%" height="578"
-              class="map"
-              (mapClick)="addMarker($event)">
-
-              <map-marker *ngFor="let markerPosition of markerPositions"
-                [position]="markerPosition"
-                [options]="markerOptions"
-                [clickable]="true"
-                (positionChanged)="showValues()"></map-marker>
-            </google-map>
-          </div>
-
-          <button class="btn btn-primary btn-registrar" type="button">Registrar</button>
-          <button class="btn btn-primary btn-cancelar" type="button"
-            data-bs-dismiss="modal">Cancelar</button>
-        </form>
-      </div>
-
+      <app-address-map></app-address-map>
 
     </div>
   </div>

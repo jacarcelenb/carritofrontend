@@ -12,18 +12,16 @@ export class AddressMapComponent implements AfterViewInit {
   @ViewChild('inputPlaces')
   inputPlaces!: ElementRef;
   @ViewChild("placesRef") placesRef : GooglePlaceDirective | undefined;
-
-  @ViewChild(GoogleMap) map: GoogleMap | undefined;
+  latitude: number | undefined;
+  longitude: number  | undefined;
+  @ViewChild(GoogleMap)
+  map!: google.maps.Map;
   @ViewChild(MapMarker) markerposition: MapMarker | undefined
 
-  formattedaddress = " ";
-  option = {
-    componentRestrictions: {
-      country: ["AU"]
-    }
-  }
-  markerOptions: google.maps.MarkerOptions = { draggable: true };
-  markerPositions: google.maps.LatLngLiteral[] = [];
+
+  markerOptions: google.maps.MarkerOptions = { draggable: true,
+   title:"Usted está aquí"};
+  markerPositions: google.maps.LatLngLiteral[] = [ ];
   options: google.maps.MapOptions = {
     center: { lat: -1.831239, lng: -78.183406 },
     zoom: 4,
@@ -35,13 +33,10 @@ export class AddressMapComponent implements AfterViewInit {
   constructor() {
   }
 
-  public AddressChange(address: any) {
-    //setting address from API to local variable
-    this.formattedaddress=address.formatted_address
-    }
-  addMarker(event: google.maps.MapMouseEvent) {
+
+  addMarker(position: google.maps.LatLngLiteral) {
     if (this.markerPositions.length == 0) {
-      this.markerPositions.push(event.latLng!.toJSON());
+      this.markerPositions.push(position);
     }
   }
 
@@ -72,6 +67,10 @@ export class AddressMapComponent implements AfterViewInit {
         return;
       }
       const bounds = new google.maps.LatLngBounds();
+      console.log(places)
+      this.latitude = places![0].geometry?.location?.lat()
+      this.longitude = places![0].geometry?.location?.lng()
+
       places?.forEach(place => {
         if (!place.geometry || !place.geometry.location) {
           return;
@@ -80,9 +79,15 @@ export class AddressMapComponent implements AfterViewInit {
           bounds.union(place.geometry.viewport)
         } else {
           bounds.extend(place.geometry.location)
+
+
         }
       })
+
+
+      this.markerPositions.push({lat: this.latitude! , lng: this.longitude!})
       this.map?.fitBounds(bounds)
+
 
 
     })

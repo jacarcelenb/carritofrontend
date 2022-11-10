@@ -27,6 +27,7 @@
     "@angular/router": "^14.0.0",
     "@types/google.maps": "^3.50.5",
     "bootstrap": "^5.2.2",
+    "bootstrap-icons": "^1.9.1",
     "bootstrap4-fullscreen-modal": "^4.5.0",
     "express": "^4.18.1",
     "faker": "^6.6.6",
