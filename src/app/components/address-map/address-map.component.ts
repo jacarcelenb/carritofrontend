@@ -19,44 +19,42 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   map!: google.maps.Map;
   @ViewChild(MapMarker) markerposition: MapMarker | undefined
 
+  clickMap: boolean = false;
 
   markerOptions: google.maps.MarkerOptions = {
     draggable: true,
     title: "Usted está aquí"
   };
   markerPositions: google.maps.LatLngLiteral[] = [];
+  newPoisiton: google.maps.LatLngLiteral[] = [];
   options: google.maps.MapOptions = {
-    center: { lat: -1.831239, lng: -78.183406 },
-    zoom: 4,
+    center: { lat: 0.3517100, lng: -78.1223300 },
+    zoom: 12,
     fullscreenControl: false,
     disableDefaultUI: false,
     mapTypeControl: false
 
   };
+
+
+
   constructor(private SenderDataService: SenderDataService) {
   }
   ngOnInit(): void {
-    console.log("dataffff")
     this.SenderDataService.sender.subscribe((data: any) => {
-      console.log("dataffff")
       console.log(data)
     })
   }
-
-
-
-
-  addMarker(position: google.maps.LatLngLiteral) {
+  addMarker(event: google.maps.MapMouseEvent) {
+    console.log(this.markerPositions)
+    // vaciar la lista
+    this.markerPositions = []
     if (this.markerPositions.length == 0) {
-      this.markerPositions.push(position);
+      this.markerPositions.push(event.latLng!.toJSON());
     }
   }
 
-  display: boolean = false;
 
-  showDialog() {
-    this.display = true;
-  }
   public handleAddressChange(address: Address) {
     console.log(address)
   }
@@ -98,6 +96,18 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
 
 
       this.markerPositions.push({ lat: this.latitude!, lng: this.longitude! })
+
+      if (this.markerPositions.length > 0) {
+        this.newPoisiton.push(this.markerPositions[this.markerPositions.length - 1])
+        console.log(this.newPoisiton)
+        // vaciar la lista
+        this.markerPositions = []
+        console.log(this.markerPositions)
+        this.markerPositions.push(this.newPoisiton[0])
+        console.log(this.markerPositions)
+        this.newPoisiton = []
+
+      }
       this.map?.fitBounds(bounds)
 
 

@@ -46,7 +46,7 @@ export class AddressAppComponent implements AfterViewInit, OnInit{
 
 
     this.SenderDataService.sender.emit({
-      data: this.formattedaddress
+      data: "Carcelen"
     })
 
   }
