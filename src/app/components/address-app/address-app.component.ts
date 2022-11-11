@@ -6,6 +6,7 @@ import { GoogleMap, MapGeocoder, MapMarker } from '@angular/google-maps';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { SenderDataService } from 'src/app/service/sender-data.service';
+import { AddressService } from 'src/app/service/address.service';
 
 
 
@@ -15,7 +16,7 @@ import { SenderDataService } from 'src/app/service/sender-data.service';
   templateUrl: './address-app.component.html',
   styleUrls: ['./address-app.component.css']
 })
-export class AddressAppComponent implements AfterViewInit, OnInit{
+export class AddressAppComponent implements AfterViewInit, OnInit {
   @ViewChild('inputPlaces')
   inputPlaces!: ElementRef;
   @ViewChild("placesRef") placesRef: GooglePlaceDirective | undefined;
@@ -36,19 +37,37 @@ export class AddressAppComponent implements AfterViewInit, OnInit{
     zoom: 4,
     fullscreenControl: false
   };
-  constructor(private SenderDataService: SenderDataService) {
+
+  list_address: any[] = [];
+
+  list_type_address: any[] = [];
+
+  constructor(private SenderDataService: SenderDataService,
+    private addressService: AddressService) {
   }
   ngOnInit(): void {
-   this.formattedaddress = "fadfasdfasdfasdfasdfasdfasdfas"
+    this.getAddress();
   }
 
-  selectDireccion() {
+  getAddress() {
+    this.addressService.getClientAddress().subscribe((data: any) => {
+      this.list_address = data.Direcciones
+      this.list_type_address = data.Tipo
 
-
-    this.SenderDataService.sender.emit({
-      data: "Carcelen"
     })
+  }
 
+
+
+  showAddressType(address: any): string {
+    let type_address = ""
+    for (let index = 0; index < this.list_type_address.length; index++) {
+      if (address.dir_tipo_direccion == this.list_type_address[index].tdd_tipo_direccion) {
+        type_address = this.list_type_address[index].tdd_nombre
+      }
+
+    }
+    return type_address
   }
   public AddressChange(address: any) {
     //setting address from API to local variable

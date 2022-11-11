@@ -73,6 +73,11 @@
             "development": {
               "browserTarget": "Client_View:build:development"
             }
+          },"options": {
+            "browserTarget": "Client_View:build",
+            "proxyConfig": "src/proxy.conf.json"
+
+
           },
           "defaultConfiguration": "development"
         },

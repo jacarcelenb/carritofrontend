@@ -1,9 +1,7 @@
 {
-    "/login/*":{
-        "target":"https://app-backend-sh-cart.herokuapp.com",
-        "secure": true,
-        "logLevel":"debug",
-        "changeOrigin":true
-
+    "/oriondir/api/direcciones/*": {
+        "target": "http://192.168.13.212:8081",
+        "secure": false,
+        "logLevel": "debug"
     }
 }
