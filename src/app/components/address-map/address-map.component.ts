@@ -58,11 +58,20 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
     private router: Router,
     private geocoder: MapGeocoder) {
   }
+
+// TO DO
+// Crear un metodo para buscar la direccion
+// Validar la posicion obtenida
+// Tomar los datos de las direcciones con latitud y longitud
+// Probar
   ngOnInit(): void {
 
     this.geocoder.geocode({
-      address: 'Miguel Oviedo 7-29 y, Ibarra 100105',
-      region:'EC'
+      address: 'HOTEL TURISMO ,JUAN HERNANDEZ, IBARRA',
+      region:'EC',
+      componentRestrictions:{
+        country:'EC'
+      }
 
     }).subscribe(({results}) => {
       console.log(results);
