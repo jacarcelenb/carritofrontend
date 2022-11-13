@@ -17,6 +17,7 @@ import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {DialogModule} from 'primeng/dialog';
 import { AddressMapComponent } from './components/address-map/address-map.component';
 import {ButtonModule} from 'primeng/button';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {ButtonModule} from 'primeng/button';
     GooglePlaceModule,
     DynamicDialogModule,
     DialogModule,
-    ButtonModule
+    ButtonModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
