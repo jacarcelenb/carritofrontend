@@ -46,7 +46,7 @@ export class AddressAppComponent implements AfterViewInit, OnInit {
     private addressService: AddressService) {
   }
   ngOnInit(): void {
-    this.getAddress();
+    //this.getAddress();
   }
 
   getAddress() {

@@ -6,7 +6,7 @@ import { AddressMapComponent } from './components/address-map/address-map.compon
 
 
 const routes: Routes = [
-  {path: '',component: AddressAppComponent},
+  {path: '',component: AddressMapComponent},
   {path: 'map/:address',component: AddressMapComponent}
 ];
 

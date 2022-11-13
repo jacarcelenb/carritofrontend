@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { GoogleMap, MapMarker } from '@angular/google-maps';
+import { GoogleMap, MapGeocoder, MapMarker } from '@angular/google-maps';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { AddressService } from 'src/app/service/address.service';
 import { SenderDataService } from 'src/app/service/sender-data.service';
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -17,8 +18,8 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   positions: any[] = [];
   @ViewChild('inputPlaces')
   inputPlaces!: ElementRef;
-  @ViewChild('inputData')
-  inputData!: ElementRef;
+
+
   @ViewChild("placesRef") placesRef: GooglePlaceDirective | undefined;
   latitude: number | undefined;
   longitude: number | undefined;
@@ -28,32 +29,51 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   list_address: any[] = [];
   clickMap: boolean = false;
 
+
+
   markerOptions: google.maps.MarkerOptions = {
     draggable: true,
     title: "Usted está aquí"
   };
+
   markerPositions: google.maps.LatLngLiteral[] = [];
+
+
   newPoisiton: google.maps.LatLngLiteral[] = [];
   options: google.maps.MapOptions = {
     center: { lat: 0.3517100, lng: -78.1223300 },
     zoom: 12,
     fullscreenControl: false,
     disableDefaultUI: false,
-    mapTypeControl: false
+    mapTypeControl: false,
 
   };
 
-
-
-
+  apiLatitude: number = 0
+  apiLongitude: number = 0
 
 
   constructor(public actRoute: ActivatedRoute,
     private addressService: AddressService,
-    private router: Router) {
+    private router: Router,
+    private geocoder: MapGeocoder) {
   }
   ngOnInit(): void {
-    this.getAddress();
+
+    this.geocoder.geocode({
+      address: 'Miguel Oviedo 7-29 y, Ibarra 100105',
+      region:'EC'
+
+    }).subscribe(({results}) => {
+      console.log(results);
+      this.inputPlaces.nativeElement.value = results[0].formatted_address
+      this.markerPositions.push({lat:results[0].geometry.location.lat(),lng:results[0].geometry.location.lng()})
+    });
+
+
+
+
+    //this.getAddress();
   }
 
   getAddress() {
@@ -109,6 +129,7 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     console.log(this.address)
+    const address = this.findAddress()
 
     this.inputPlaces.nativeElement.value = this.address
 
@@ -173,7 +194,10 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
       longitude: this.markerposition?.getPosition()?.lng()
     }
 
+
+
     this.positions.push(position)
+
 
 
 
@@ -189,6 +213,11 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
     address.dir_longitud = this.positions[this.positions.length - 1].longitude.toString()
 
     this.addressService.postAddress(address).subscribe((data: any) => {
+      Swal.fire(
+        'Información registrada correctamente',
+        'Su dirección ha sido registrada',
+        'success'
+      )
       this.router.navigate(['/'])
     })
   }
