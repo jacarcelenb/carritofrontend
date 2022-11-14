@@ -109,7 +109,7 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
     this.markerPositions = []
     this.inputPlaces.nativeElement.value = ""
     const place = this.findAddress()
-    if (place.dir_latitud.length > 0 && place.dir_longitud.length > 0) {
+    if (place.dir_latitud !=null && place.dir_longitud !=null) {
       this.inputPlaces.nativeElement.value = place.dir_direccion
       this.centerPosition = { lat: parseFloat(place.dir_latitud), lng: parseFloat(place.dir_longitud) }
       this.markerPositions.push({ lat: parseFloat(place.dir_latitud), lng: parseFloat(place.dir_longitud) })
