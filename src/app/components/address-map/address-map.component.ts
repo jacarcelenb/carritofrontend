@@ -19,7 +19,7 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   @ViewChild('inputPlaces')
   inputPlaces!: ElementRef;
 
-
+  FindPlace: any
   @ViewChild("placesRef") placesRef: GooglePlaceDirective | undefined;
   latitude: number | undefined;
   longitude: number | undefined;
@@ -41,7 +41,7 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
 
   newPoisiton: google.maps.LatLngLiteral[] = [];
   options: google.maps.MapOptions = {
-    zoom: 18,
+    zoom: 17,
     fullscreenControl: false,
     disableDefaultUI: false,
     mapTypeControl: false,
@@ -164,6 +164,7 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
       }
       const bounds = new google.maps.LatLngBounds();
       console.log(places)
+      this.FindPlace = places
       this.latitude = places![0].geometry?.location?.lat()
       this.longitude = places![0].geometry?.location?.lng()
 
@@ -220,7 +221,6 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   }
 
   SaveData() {
-
     let latitude: any
     let longitude: any
     const address = this.findAddress()

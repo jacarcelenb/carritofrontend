@@ -5,7 +5,7 @@
   <p-table  [value]="list_address" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [tableStyle]="{'min-width': '50rem'}"
   currentPageReportTemplate="Mostrando desde el {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50]" styleClass="tabla">
     <ng-template pTemplate="header">
-        <tr style="border-top:2px solid black ;border-bottom:2px solid black ;">
+        <tr style="border:2px  black ;">
           <th  style="width:20%">Tipo de dirección</th>
                 <th style="width:20%">Dirección</th>
                 <th  style="width:20%">Opciones</th>
@@ -13,7 +13,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-address>
-        <tr style="border-top:2px solid black ;border-bottom:2px solid black ;" >
+        <tr style="border:2px  black" >
           <td >{{ showAddressType(address)}}</td>
           <td>{{address.dir_direccion}}</td>
           <td><button type="button" class="btn btn-warning"
