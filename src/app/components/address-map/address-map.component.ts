@@ -59,39 +59,24 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
     private geocoder: MapGeocoder) {
   }
 
-// TO DO
-// Crear un metodo para buscar la direccion
-// Validar la posicion obtenida
-// Tomar los datos de las direcciones con latitud y longitud
-// Probar
+  // TO DO
+  // Crear un metodo para buscar la direccion
+  // Validar la posicion obtenida
+  // Tomar los datos de las direcciones con latitud y longitud
+  // Probar
   ngOnInit(): void {
-
-    this.geocoder.geocode({
-      address: 'HOTEL TURISMO ,JUAN HERNANDEZ, IBARRA',
-      region:'EC',
-      componentRestrictions:{
-        country:'EC'
-      }
-
-    }).subscribe(({results}) => {
-      console.log(results);
-      this.inputPlaces.nativeElement.value = results[0].formatted_address
-      this.markerPositions.push({lat:results[0].geometry.location.lat(),lng:results[0].geometry.location.lng()})
-    });
-
-
-
-
-    //this.getAddress();
+    this.getAddress();
   }
 
   getAddress() {
     this.addressService.getClientAddress().subscribe((data: any) => {
       this.list_address = data.Direcciones
+      this.setLocation();
     })
   }
 
   findAddress() {
+    console.log(this.address)
     const location = {
       dir_cliente: "",
       dir_tipo_direccion: "",
@@ -121,6 +106,32 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
     return location
   }
 
+  setLocation() {
+    this.markerPositions = []
+    this.inputPlaces.nativeElement.value = ""
+    const place = this.findAddress()
+    if (place.dir_latitud.length > 0 && place.dir_longitud.length > 0) {
+      this.options.zoom = 30
+      this.inputPlaces.nativeElement.value = place.dir_direccion
+      this.markerPositions.push({ lat: parseFloat(place.dir_latitud), lng: parseFloat(place.dir_longitud) })
+    } else {
+      this.markerPositions = []
+      this.inputPlaces.nativeElement.value = ""
+      this.geocoder.geocode({
+        address: place.dir_direccion,
+        region: 'EC',
+        componentRestrictions: {
+          country: 'EC'
+        }
+      }).subscribe((data: any) => {
+        this.inputPlaces.nativeElement.value = data.results[0].formatted_address
+        this.markerPositions.push({ lat: data.results[0].geometry.location.lat(), lng: data.results[0].geometry.location.lng() })
+
+      });
+
+    }
+  }
+
 
   addMarker(event: google.maps.MapMouseEvent) {
     console.log(this.markerPositions)
@@ -137,13 +148,8 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
 
 
   ngAfterViewInit(): void {
-    console.log(this.address)
-    const address = this.findAddress()
-
-    this.inputPlaces.nativeElement.value = this.address
-
     const searchBox = new google.maps.places.SearchBox(
-      this.inputPlaces!.nativeElement
+      this.inputPlaces.nativeElement
     );
     console.log(searchBox)
     this.map?.controls[google.maps.ControlPosition.TOP_CENTER].push(
@@ -213,14 +219,24 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   }
 
   SaveData() {
-    console.log("Ultima posicion")
-    console.log(this.positions[this.positions.length - 1])
-    alert("Latitud: " + this.positions[this.positions.length - 1].latitude + "  "
-      + "Longitud: " + this.positions[this.positions.length - 1].longitude)
-    const address = this.findAddress()
-    address.dir_latitud = this.positions[this.positions.length - 1].latitude.toString()
-    address.dir_longitud = this.positions[this.positions.length - 1].longitude.toString()
 
+    let latitude: any
+    let longitude: any
+    const address = this.findAddress()
+
+    if (this.positions.length > 0) {
+      latitude =this.positions[this.positions.length - 1].latitude.toString()
+      longitude = this.positions[this.positions.length - 1].longitude.toString()
+      address.dir_latitud = latitude
+      address.dir_longitud = longitude
+    } else {
+       latitude = this.markerposition?.marker?.getPosition()?.lat().toString()
+       longitude = this.markerposition?.marker?.getPosition()?.lng().toString()
+
+       address.dir_latitud = latitude
+       address.dir_longitud = longitude
+
+    }
     this.addressService.postAddress(address).subscribe((data: any) => {
       Swal.fire(
         'Información registrada correctamente',
