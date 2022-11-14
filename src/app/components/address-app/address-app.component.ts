@@ -31,6 +31,7 @@ export class AddressAppComponent implements AfterViewInit, OnInit {
     }
   }
   markerOptions: google.maps.MarkerOptions = { draggable: true };
+
   markerPositions: google.maps.LatLngLiteral[] = [];
   options: google.maps.MapOptions = {
     center: { lat: -1.831239, lng: -78.183406 },

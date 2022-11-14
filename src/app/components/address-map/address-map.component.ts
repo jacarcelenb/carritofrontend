@@ -30,7 +30,7 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   clickMap: boolean = false;
 
 
-
+  centerPosition!: google.maps.LatLngLiteral;
   markerOptions: google.maps.MarkerOptions = {
     draggable: true,
     title: "Usted está aquí"
@@ -41,8 +41,7 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
 
   newPoisiton: google.maps.LatLngLiteral[] = [];
   options: google.maps.MapOptions = {
-    center: { lat: 0.3517100, lng: -78.1223300 },
-    zoom: 12,
+    zoom: 18,
     fullscreenControl: false,
     disableDefaultUI: false,
     mapTypeControl: false,
@@ -111,10 +110,10 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
     this.inputPlaces.nativeElement.value = ""
     const place = this.findAddress()
     if (place.dir_latitud.length > 0 && place.dir_longitud.length > 0) {
-      this.options.zoom = 30
       this.inputPlaces.nativeElement.value = place.dir_direccion
+      this.centerPosition = { lat: parseFloat(place.dir_latitud), lng: parseFloat(place.dir_longitud) }
       this.markerPositions.push({ lat: parseFloat(place.dir_latitud), lng: parseFloat(place.dir_longitud) })
-    } else {
+    }else {
       this.markerPositions = []
       this.inputPlaces.nativeElement.value = ""
       this.geocoder.geocode({
@@ -124,12 +123,14 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
           country: 'EC'
         }
       }).subscribe((data: any) => {
+        this.centerPosition = { lat: data.results[0].geometry.location.lat(), lng: data.results[0].geometry.location.lng() }
         this.inputPlaces.nativeElement.value = data.results[0].formatted_address
         this.markerPositions.push({ lat: data.results[0].geometry.location.lat(), lng: data.results[0].geometry.location.lng() })
 
       });
 
     }
+
   }
 
 
