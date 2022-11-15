@@ -1,7 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { GoogleMap, MapGeocoder, MapMarker } from '@angular/google-maps';
+import { Component, OnInit } from '@angular/core';
+import { MapGeocoder } from '@angular/google-maps';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { AddressService } from 'src/app/service/address.service';
 
 @Component({
@@ -82,7 +81,7 @@ export class AddressTypeMapComponent implements OnInit {
     for (let index = 0; index < this.list_address.length; index++) {
       if (this.list_address[index].dir_direccion == this.address && this.list_address[index].dir_cliente == this.client
         && this.list_address[index].dir_tipo_direccion == this.type) {
-          this.correctAddress = true;
+        this.correctAddress = true;
         location.dir_cliente = this.list_address[index].dir_cliente;
         location.dir_direccion = this.list_address[index].dir_direccion;
         location.dir_tipo_direccion = this.list_address[index].dir_tipo_direccion;
