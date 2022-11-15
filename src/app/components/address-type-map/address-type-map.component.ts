@@ -43,7 +43,7 @@ export class AddressTypeMapComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.ValidateAddress() == true) {
-      this.getAddress()
+      //this.getAddress()
     }
 
   }
@@ -57,10 +57,12 @@ export class AddressTypeMapComponent implements OnInit {
   }
 
   getAddress() {
-    this.addressService.getClientAddress().subscribe((data: any) => {
+/**
+ * this.addressService.getClientAddress().subscribe((data: any) => {
       this.list_address = data.Direcciones
       this.setLocation();
     })
+ */
   }
 
   findAddress() {

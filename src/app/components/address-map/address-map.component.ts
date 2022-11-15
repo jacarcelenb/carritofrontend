@@ -68,10 +68,12 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   }
 
   getAddress() {
-    this.addressService.getClientAddress().subscribe((data: any) => {
+  /**
+   * this.addressService.getClientAddress().subscribe((data: any) => {
       this.list_address = data.Direcciones
       this.setLocation();
     })
+   */
   }
 
   findAddress() {

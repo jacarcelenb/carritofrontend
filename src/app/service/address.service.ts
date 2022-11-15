@@ -21,8 +21,8 @@ export class AddressService {
   }
 
 
-  public getClientAddress() {
-    return this.http.get(this.url+"1344597?username=12333", this.httpOptions);
+  public getClientAddress(cliente: any , username: any) {
+    return this.http.get(this.url+""+cliente+"?"+"username="+username, this.httpOptions);
   }
 
   public postAddress(address: any){
