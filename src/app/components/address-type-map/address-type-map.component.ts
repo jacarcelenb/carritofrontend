@@ -15,7 +15,9 @@ export class AddressTypeMapComponent implements OnInit {
   client = this.actRoute.snapshot.paramMap.get("client");
   type = this.actRoute.snapshot.paramMap.get("type");
 
+  list_address: any[] = [];
   constructor(public actRoute: ActivatedRoute,
+    private addressService: AddressService,
     private router: Router,
     private geocoder: MapGeocoder) { }
 
@@ -40,7 +42,7 @@ export class AddressTypeMapComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.ValidateAddress() == true) {
-      this.setLocation()
+      this.getAddress()
     } else {
       this.router.navigate(['/'])
     }
@@ -55,25 +57,67 @@ export class AddressTypeMapComponent implements OnInit {
     return validated
   }
 
-  setLocation() {
-    this.markerPositions = []
-    this.geocoder.geocode({
-      address: this.address,
-      region: 'EC',
-      componentRestrictions: {
-        country: 'EC'
-      }
-    }).subscribe((data: any) => {
-      console.log(data.results[0])
-      this.centerPosition = { lat: data.results[0].geometry.location.lat(), lng: data.results[0].geometry.location.lng() }
-      this.markerPositions.push({ lat: data.results[0].geometry.location.lat(), lng: data.results[0].geometry.location.lng() })
-
-    });
-
-
-
+  getAddress() {
+    this.addressService.getClientAddress().subscribe((data: any) => {
+      this.list_address = data.Direcciones
+      this.setLocation();
+    })
   }
 
+  findAddress() {
+    console.log(this.address)
+    const location = {
+      dir_cliente: "",
+      dir_tipo_direccion: "",
+      dir_direccion: "",
+      creacion_usuario: "",
+      creacion_fecha: "",
+      modifica_usuario: "",
+      modifica_fecha: "",
+      dir_latitud: "",
+      dir_longitud: ""
+    }
+
+    for (let index = 0; index < this.list_address.length; index++) {
+      if (this.list_address[index].dir_direccion == this.address) {
+        location.dir_cliente = this.list_address[index].dir_cliente;
+        location.dir_direccion = this.list_address[index].dir_direccion;
+        location.dir_tipo_direccion = this.list_address[index].dir_tipo_direccion;
+        location.creacion_usuario = this.list_address[index].creacion_usuario;
+        location.creacion_fecha = this.list_address[index].creacion_fecha;
+        location.modifica_fecha = this.list_address[index].modifica_fecha;
+        location.modifica_usuario = this.list_address[index].modifica_usuario;
+        location.dir_latitud = this.list_address[index].dir_latitud;
+        location.dir_longitud = this.list_address[index].dir_longitud;
+
+      }
+    }
+    return location
+  }
+
+  setLocation() {
+    this.markerPositions = []
+    const place = this.findAddress()
+    if (place.dir_latitud !=null && place.dir_longitud !=null) {
+      this.centerPosition = { lat: parseFloat(place.dir_latitud), lng: parseFloat(place.dir_longitud) }
+      this.markerPositions.push({ lat: parseFloat(place.dir_latitud), lng: parseFloat(place.dir_longitud) })
+    }else {
+      this.markerPositions = []
+      this.geocoder.geocode({
+        address: place.dir_direccion,
+        region: 'EC',
+        componentRestrictions: {
+          country: 'EC'
+        }
+      }).subscribe((data: any) => {
+        this.centerPosition = { lat: data.results[0].geometry.location.lat(), lng: data.results[0].geometry.location.lng() }
+        this.markerPositions.push({ lat: data.results[0].geometry.location.lat(), lng: data.results[0].geometry.location.lng() })
+
+      });
+
+    }
+
+  }
 
 
 }
