@@ -18,6 +18,7 @@ import {DialogModule} from 'primeng/dialog';
 import { AddressMapComponent } from './components/address-map/address-map.component';
 import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
+import { AddressTypeMapComponent } from './components/address-type-map/address-type-map.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {TableModule} from 'primeng/table';
     FilterProductosPipe,
     AddressAppComponent,
     AddressMapComponent,
+    AddressTypeMapComponent,
   ],
   imports: [
     AppRoutingModule,
