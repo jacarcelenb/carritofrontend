@@ -9,7 +9,8 @@ import { AddressTypeMapComponent } from './components/address-type-map/address-t
 const routes: Routes = [
   {path: '',component: AddressAppComponent},
   {path: 'map/:address',component: AddressMapComponent},
-  {path: 'typemap/:address/:client/:type',component: AddressTypeMapComponent}
+  {path: 'typemap/:address/:client/:type',component: AddressTypeMapComponent},
+  { path: '**', redirectTo: '/', pathMatch: 'full' }
 
 ];
 
