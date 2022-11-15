@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="correctAddress == true">
 
 
     <google-map [options]="options" width="100%" height="574"
@@ -10,6 +10,17 @@
       [clickable]="true"></map-marker>
   </google-map>
 
+
+</div>
+
+<div *ngIf="correctAddress == false">
+  <br>
+        <h1 style="text-align: center; font-weight:bolder; font-size: 50px;"> <i class="fa fa-exclamation-triangle fa-1x" style=" color: rgb(245, 21, 21)"></i> Dirección ingresada no  válida </h1>
+
+
+          <img    src="../../../assets/señal.jpg" alt="" srcset="" width="350" height="350" style="display: block;
+          margin-left: auto;
+          margin-right: auto;">
 
 </div>
 

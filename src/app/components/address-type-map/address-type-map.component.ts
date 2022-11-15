@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MapGeocoder } from '@angular/google-maps';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddressService } from 'src/app/service/address.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-address-type-map',
@@ -43,8 +44,6 @@ export class AddressTypeMapComponent implements OnInit {
   ngOnInit(): void {
     if (this.ValidateAddress() == true) {
       this.getAddress()
-    } else {
-      this.router.navigate(['/'])
     }
 
   }
@@ -101,9 +100,7 @@ export class AddressTypeMapComponent implements OnInit {
     if (place.dir_latitud != null && place.dir_longitud != null && this.correctAddress == true) {
       this.centerPosition = { lat: parseFloat(place.dir_latitud), lng: parseFloat(place.dir_longitud) }
       this.markerPositions.push({ lat: parseFloat(place.dir_latitud), lng: parseFloat(place.dir_longitud) })
-    }  else {
-        this.router.navigate(['/'])
-      }
+    }
   }
 
 
