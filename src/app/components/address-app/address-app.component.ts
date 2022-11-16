@@ -17,7 +17,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './address-app.component.html',
   styleUrls: ['./address-app.component.css']
 })
-export class AddressAppComponent implements OnInit, AfterViewInit {
+export class AddressAppComponent implements OnInit{
   cliente = this.actRoute.snapshot.paramMap.get("cliente");
   user = this.actRoute.snapshot.paramMap.get("username");
 
@@ -32,9 +32,7 @@ export class AddressAppComponent implements OnInit, AfterViewInit {
     private addressService: AddressService,
     public actRoute: ActivatedRoute) {
   }
-  ngAfterViewInit(): void {
 
-  }
   ngOnInit(): void {
 
     this.getAddress();

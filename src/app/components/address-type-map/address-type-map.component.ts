@@ -13,6 +13,7 @@ export class AddressTypeMapComponent implements OnInit {
 
   client = this.actRoute.snapshot.paramMap.get("client");
   type = this.actRoute.snapshot.paramMap.get("type");
+  user = this.actRoute.snapshot.paramMap.get("username");
 
   list_address: any[] = [];
   correctAddress: boolean = false;
@@ -21,7 +22,7 @@ export class AddressTypeMapComponent implements OnInit {
     private router: Router,
     private geocoder: MapGeocoder) { }
 
-  centerPosition : google.maps.LatLngLiteral = { lat: 0.362678, lng: -78.1307}
+  centerPosition: google.maps.LatLngLiteral = { lat: 0.362678, lng: -78.1307 }
 
   markerOptions: google.maps.MarkerOptions = {
     draggable: false,
@@ -43,26 +44,25 @@ export class AddressTypeMapComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.ValidateAddress() == true) {
-      //this.getAddress()
+      this.getAddress(this.client, this.user)
     }
 
   }
 
   ValidateAddress(): boolean {
     let validated = false;
-    if ( this.client!.length > 0 && this.type!.length > 0) {
+    if (this.client!.length > 0 && this.type!.length > 0 && this.user!.length > 0) {
       validated = true
     }
     return validated
   }
 
-  getAddress() {
-/**
- * this.addressService.getClientAddress().subscribe((data: any) => {
+  getAddress(client: any, username: any) {
+    this.addressService.getClientAddress(client, username).subscribe((data: any) => {
       this.list_address = data.Direcciones
       this.setLocation();
     })
- */
+
   }
 
   findAddress() {
