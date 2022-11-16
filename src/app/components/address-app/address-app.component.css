@@ -84,3 +84,8 @@ modal-body {
 
 }
 
+.user {
+    font-weight: bolder; color: black;
+    font-size: 18px;
+}
+

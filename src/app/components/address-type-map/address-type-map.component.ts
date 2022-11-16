@@ -13,7 +13,7 @@ export class AddressTypeMapComponent implements OnInit {
 
   client = this.actRoute.snapshot.paramMap.get("client");
   type = this.actRoute.snapshot.paramMap.get("type");
-  user = this.actRoute.snapshot.paramMap.get("username");
+  user = "12333"
 
   list_address: any[] = [];
   correctAddress: boolean = false;

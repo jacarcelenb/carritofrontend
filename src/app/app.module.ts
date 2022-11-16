@@ -19,6 +19,7 @@ import { AddressMapComponent } from './components/address-map/address-map.compon
 import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
 import { AddressTypeMapComponent } from './components/address-type-map/address-type-map.component';
+import { ErrorpageComponent } from './component/errorpage/errorpage.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AddressTypeMapComponent } from './components/address-type-map/address-t
     AddressAppComponent,
     AddressMapComponent,
     AddressTypeMapComponent,
+    ErrorpageComponent,
   ],
   imports: [
     AppRoutingModule,

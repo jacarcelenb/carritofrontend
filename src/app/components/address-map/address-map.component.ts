@@ -46,8 +46,9 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   options: google.maps.MapOptions = {
     zoom: 17,
     fullscreenControl: false,
-    disableDefaultUI: false,
+    disableDefaultUI: true,
     mapTypeControl: false,
+
 
   };
 
