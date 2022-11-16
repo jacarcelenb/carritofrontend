@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as vars from '../../../variables'
+import * as vars from '../../assets/variables'
 @Injectable({
   providedIn: 'root'
 })
 export class AddressService {
 
   constructor(private http: HttpClient) {
-    console.log(vars.VARS.url)
+
   }
   url = vars.VARS.url;
   httpOptions = {

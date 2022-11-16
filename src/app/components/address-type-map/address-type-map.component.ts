@@ -36,6 +36,7 @@ export class AddressTypeMapComponent implements OnInit {
     fullscreenControl: false,
     disableDefaultUI: false,
     mapTypeControl: false,
+    controlSize: 1,
 
   };
 

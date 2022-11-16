@@ -45,10 +45,10 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   newPoisiton: google.maps.LatLngLiteral[] = [];
   options: google.maps.MapOptions = {
     zoom: 17,
-    fullscreenControl: false,
+    fullscreenControl: true,
     disableDefaultUI: true,
     mapTypeControl: false,
-
+    controlSize: 1,
 
   };
 
@@ -65,15 +65,15 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
 
-   console.log(this.address)
-   console.log(this.user)
-   console.log(this.cliente)
-   this.getAddress(this.cliente, this.user)
+    console.log(this.address)
+    console.log(this.user)
+    console.log(this.cliente)
+    this.getAddress(this.cliente, this.user)
 
   }
 
   getAddress(cliente: any, username: any) {
-  this.addressService.getClientAddress(cliente, username).subscribe((data: any) => {
+    this.addressService.getClientAddress(cliente, username).subscribe((data: any) => {
       this.list_address = data.Direcciones
       this.setLocation();
     })
@@ -114,11 +114,11 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   setLocation() {
 
     const place = this.findAddress()
-    if (place.dir_latitud !=null && place.dir_longitud !=null) {
+    if (place.dir_latitud != null && place.dir_longitud != null) {
       this.inputPlaces.nativeElement.value = place.dir_direccion
       this.centerPosition = { lat: parseFloat(place.dir_latitud), lng: parseFloat(place.dir_longitud) }
       this.markerPositions.push({ lat: parseFloat(place.dir_latitud), lng: parseFloat(place.dir_longitud) })
-    }else {
+    } else {
       this.markerPositions = []
       this.inputPlaces.nativeElement.value = ""
       this.geocoder.geocode({
@@ -230,16 +230,16 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
     let longitude: any
     const address = this.findAddress()
     if (this.positions.length > 0) {
-      latitude =this.positions[this.positions.length - 1].latitude.toString()
+      latitude = this.positions[this.positions.length - 1].latitude.toString()
       longitude = this.positions[this.positions.length - 1].longitude.toString()
       address.dir_latitud = latitude
       address.dir_longitud = longitude
     } else {
-       latitude = this.markerposition?.marker?.getPosition()?.lat().toString()
-       longitude = this.markerposition?.marker?.getPosition()?.lng().toString()
+      latitude = this.markerposition?.marker?.getPosition()?.lat().toString()
+      longitude = this.markerposition?.marker?.getPosition()?.lng().toString()
 
-       address.dir_latitud = latitude
-       address.dir_longitud = longitude
+      address.dir_latitud = latitude
+      address.dir_longitud = longitude
 
     }
     this.addressService.postAddress(address).subscribe((data: any) => {
@@ -248,7 +248,7 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
         'Su dirección ha sido registrada',
         'success'
       )
-      this.router.navigate(['/address/'+this.cliente+'/'+this.user])
+      this.router.navigate(['/address/' + this.cliente + '/' + this.user])
     })
   }
 
