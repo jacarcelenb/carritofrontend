@@ -9,7 +9,7 @@ export class AddressService {
   constructor(private http: HttpClient) {
     console.log(vars.VARS.url)
   }
-  url = " /oriondir/api/direcciones/";
+  url = vars.VARS.url;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
