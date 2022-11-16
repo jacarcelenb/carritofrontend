@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 
 
 
+
 @Component({
   selector: 'app-address-app',
   templateUrl: './address-app.component.html',
@@ -31,6 +32,15 @@ export class AddressAppComponent implements OnInit {
   ngOnInit(): void {
     this.getAddress();
 
+  }
+
+  selectLocation(address: any){
+
+    const userAddress = Object.assign(address,{username: this.user})
+    this.SenderDataService.sender.emit({
+     address: userAddress,
+
+    })
   }
 
   getAddress() {

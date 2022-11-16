@@ -7,12 +7,13 @@ import * as vars from '../../../variables'
 export class AddressService {
 
   constructor(private http: HttpClient) {
+    console.log(vars.VARS.url)
   }
-  url = "http://192.168.13.212:8081/oriondir/api/direcciones/";
+  url = " /oriondir/api/direcciones/";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'AddrHdr': '123MutImb987.',
+      'AddrHdr': vars.VARS.headerToken,
       'Access-Control-Allow-Origin': '*',
       "Access-Control-Allow-Headers":"X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, DELETE",

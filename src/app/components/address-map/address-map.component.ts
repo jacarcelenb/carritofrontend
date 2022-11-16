@@ -15,6 +15,8 @@ import Swal from 'sweetalert2'
 })
 export class AddressMapComponent implements AfterViewInit, OnInit {
   address = this.actRoute.snapshot.paramMap.get("address");
+  cliente = this.actRoute.snapshot.paramMap.get("cliente");
+  user = this.actRoute.snapshot.paramMap.get("username");
   positions: any[] = [];
   @ViewChild('inputPlaces')
   inputPlaces!: ElementRef;
@@ -27,6 +29,7 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
   map!: google.maps.Map;
   @ViewChild(MapMarker) markerposition: MapMarker | undefined
   list_address: any[] = [];
+  find_address: any[] = [];
   clickMap: boolean = false;
 
 
@@ -53,31 +56,30 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
 
 
   constructor(public actRoute: ActivatedRoute,
+    private SenderDataService: SenderDataService,
     private addressService: AddressService,
     private router: Router,
     private geocoder: MapGeocoder) {
   }
 
-  // TO DO
-  // Crear un metodo para buscar la direccion
-  // Validar la posicion obtenida
-  // Tomar los datos de las direcciones con latitud y longitud
-  // Probar
   ngOnInit(): void {
-    this.getAddress();
+
+   console.log(this.address)
+   console.log(this.user)
+   console.log(this.cliente)
+   this.getAddress(this.cliente, this.user)
+
   }
 
-  getAddress() {
-  /**
-   * this.addressService.getClientAddress().subscribe((data: any) => {
+  getAddress(cliente: any, username: any) {
+  this.addressService.getClientAddress(cliente, username).subscribe((data: any) => {
       this.list_address = data.Direcciones
       this.setLocation();
     })
-   */
+
   }
 
   findAddress() {
-    console.log(this.address)
     const location = {
       dir_cliente: "",
       dir_tipo_direccion: "",
@@ -104,12 +106,12 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
 
       }
     }
+
     return location
   }
 
   setLocation() {
-    this.markerPositions = []
-    this.inputPlaces.nativeElement.value = ""
+
     const place = this.findAddress()
     if (place.dir_latitud !=null && place.dir_longitud !=null) {
       this.inputPlaces.nativeElement.value = place.dir_direccion
@@ -226,7 +228,6 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
     let latitude: any
     let longitude: any
     const address = this.findAddress()
-
     if (this.positions.length > 0) {
       latitude =this.positions[this.positions.length - 1].latitude.toString()
       longitude = this.positions[this.positions.length - 1].longitude.toString()
@@ -246,7 +247,7 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
         'Su dirección ha sido registrada',
         'success'
       )
-      this.router.navigate(['/'])
+      this.router.navigate(['/address/'+this.cliente+'/'+this.user])
     })
   }
 
