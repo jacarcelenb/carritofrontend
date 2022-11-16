@@ -13,9 +13,17 @@
       [clickable]="true"
       (positionChanged)="showValues()"></map-marker>
   </google-map>
-  <button class="btn btn-primary btn-registrar"   type="button" (click)=" SaveData()">Registrar</button>
-  <button class="btn btn-primary btn-cancelar" type="button"
-  [routerLink]="['/address',cliente, user]">Cancelar</button>
+
+
+  <a href="#" class="float1">
+    <button class="my-float1 btn-registrar"   type="button" (click)=" SaveData()">Registrar</button>
+    </a>
+
+  <a href="#" class="float">
+      <button class="btn-cancelar " type="button"
+      [routerLink]="['/address',cliente, user]">Cancelar</button></a>
+
+
 </div>
 
 
