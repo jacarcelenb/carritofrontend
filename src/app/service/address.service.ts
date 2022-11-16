@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import * as vars from '../../../variables'
 @Injectable({
   providedIn: 'root'
 })
 export class AddressService {
 
-  constructor(private http: HttpClient) { }
-  url = " /oriondir/api/direcciones/";
+  constructor(private http: HttpClient) {
+  }
+  url = "http://192.168.13.212:8081/oriondir/api/direcciones/";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -18,6 +19,8 @@ export class AddressService {
       "Allow": "GET, POST, OPTIONS, PUT, DELETE"
 
     })
+
+
   }
 
 
