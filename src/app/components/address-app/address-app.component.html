@@ -1,6 +1,6 @@
 
 
-<div class="container" style="margin-left: 3cm; margin-top: 3cm;">
+<div class="container" style="margin-left: 3cm; margin-top: 3cm;" *ngIf=" wrongAddress == false">
 
   <p-table  [value]="list_address" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [tableStyle]="{'min-width': '50rem'}"
   currentPageReportTemplate="Mostrando desde el {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50]" styleClass="tabla">
@@ -28,6 +28,24 @@
     </ng-template>
 </p-table>
 </div>
+
+<div *ngIf="wrongAddress == true">
+  <br>
+        <h1 style="text-align: center; font-weight:bolder; font-size: 50px;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="height: 64px; width: 64px;background-color: rgb(231, 15, 15) ; font-weight:bolder; color: white; border-radius: 100%; border: 3px solid white;"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+          </svg>
+
+         Dirección ingresada no  válida </h1>
+
+
+          <img    src="../../../assets/señal.jpg" alt="" srcset="" width="350" height="350" style="display: block;
+          margin-left: auto;
+          margin-right: auto;">
+
+</div>
+
 
 
 <!-- Modal -->

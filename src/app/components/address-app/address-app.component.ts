@@ -17,7 +17,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './address-app.component.html',
   styleUrls: ['./address-app.component.css']
 })
-export class AddressAppComponent implements OnInit {
+export class AddressAppComponent implements OnInit, AfterViewInit {
   cliente = this.actRoute.snapshot.paramMap.get("cliente");
   user = this.actRoute.snapshot.paramMap.get("username");
 
@@ -25,30 +25,35 @@ export class AddressAppComponent implements OnInit {
 
   list_type_address: any[] = [];
 
+  correctAddres: boolean = false;
+  wrongAddress: boolean = false;
+
   constructor(private SenderDataService: SenderDataService,
     private addressService: AddressService,
     public actRoute: ActivatedRoute) {
   }
+  ngAfterViewInit(): void {
+
+  }
   ngOnInit(): void {
+
     this.getAddress();
-
   }
 
-  selectLocation(address: any){
 
-    const userAddress = Object.assign(address,{username: this.user})
-    this.SenderDataService.sender.emit({
-     address: userAddress,
-
-    })
-  }
 
   getAddress() {
-    this.addressService.getClientAddress(this.cliente,this.user).subscribe((data: any) => {
+    this.addressService.getClientAddress(this.cliente, this.user).subscribe((data: any) => {
       this.list_address = data.Direcciones
       this.list_type_address = data.Tipo
+    }, err => {
+      console.log(err.status)
+      if (err.status == 400) {
+        this.wrongAddress = true
+      }
     })
   }
+
 
 
 
