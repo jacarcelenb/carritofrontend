@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'address/:cliente/:username',component: AddressAppComponent},
   {path: 'map/:address/:cliente/:username',component: AddressMapComponent},
   {path: 'typemap/:client/:type',component: AddressTypeMapComponent},
-  {path: '', component: ErrorpageComponent, pathMatch: 'full' }
+  {path: '**', component: ErrorpageComponent, pathMatch: 'full' }
 
 ];
 
