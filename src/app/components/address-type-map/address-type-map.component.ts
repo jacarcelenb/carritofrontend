@@ -44,6 +44,9 @@ export class AddressTypeMapComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log(this.client)
+    console.log(this.client?.length)
+    console.log(this.type)
     if (this.ValidateAddress() == true) {
       this.getAddress(this.client, this.user)
     }

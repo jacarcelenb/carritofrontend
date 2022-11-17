@@ -225,6 +225,10 @@ export class AddressMapComponent implements AfterViewInit, OnInit {
 
   }
 
+  cancel(){
+    this.router.navigate(['./address/' + this.cliente + '/' + this.user])
+  }
+
   SaveData() {
     let latitude: any
     let longitude: any

@@ -1,0 +1,8 @@
+{
+"/oriondir/api/direcciones/":{
+    "target":"http://192.168.13.212:8081",
+    "secure": false,
+    "logLevel":"debug"
+
+}
+}

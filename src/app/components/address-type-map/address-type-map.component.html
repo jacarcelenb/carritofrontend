@@ -1,7 +1,7 @@
-<div *ngIf="correctAddress == true">
+<div *ngIf="correctAddress == true" style="width: 100%; height: 100%;">
 
     <google-map [options]="options"  width="100%" height="100%" style="object-fit: fill;"
-    class="map"
+    id="map"
     [center]="centerPosition">
     <map-marker *ngFor="let markerPosition of markerPositions"
       [position]="markerPosition"
